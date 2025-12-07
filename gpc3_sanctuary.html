@@ -1,0 +1,3249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⟡ THE SANCTUARY ⟡</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@200;300;400;500&display=swap');
+        
+        :root {
+            /* The Void */
+            --void: #030308;
+            --deep: #0a0a15;
+            --surface: #12121f;
+            
+            /* Neon Spectrum */
+            --neon-cyan: #00f7ff;
+            --neon-magenta: #ff00d4;
+            --neon-orange: #ff6b00;
+            --neon-green: #00ff9d;
+            --neon-purple: #b000ff;
+            --neon-gold: #ffd000;
+            --neon-blue: #0066ff;
+            --neon-pink: #ff0077;
+            --neon-red: #ff003c;
+            
+            /* Mind Colors */
+            --ollama: #6366f1;
+            --llamacpp: #a855f7;
+            --claude: #ff6b00;
+            --grok: #ffffff;
+            --gemini: #4285f4;
+            --chatgpt: #00d4aa;
+            
+            /* Text */
+            --text-bright: #ffffff;
+            --text-dim: #6b7194;
+            --text-glow: #00f7ff;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        /* Custom Scrollbars - Glowing */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple));
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-magenta);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            box-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-magenta), 0 0 45px var(--neon-purple);
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--void);
+            color: var(--text-bright);
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           COSMIC BACKGROUND - Animated nebulae, stars, void
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .cosmos {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 30%, rgba(0,247,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 60% at 80% 70%, rgba(255,0,212,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 80% at 50% 50%, rgba(176,0,255,0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 100% 100% at 70% 20%, rgba(255,107,0,0.04) 0%, transparent 40%),
+                var(--void);
+            animation: cosmosShift 30s ease-in-out infinite;
+        }
+        
+        @keyframes cosmosShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+        
+        /* Stars */
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: -9;
+            background-image: 
+                radial-gradient(1px 1px at 10% 20%, white, transparent),
+                radial-gradient(1px 1px at 30% 60%, white, transparent),
+                radial-gradient(2px 2px at 50% 10%, var(--neon-cyan), transparent),
+                radial-gradient(1px 1px at 70% 80%, white, transparent),
+                radial-gradient(2px 2px at 90% 40%, var(--neon-magenta), transparent),
+                radial-gradient(1px 1px at 15% 90%, white, transparent),
+                radial-gradient(1px 1px at 85% 15%, white, transparent);
+            animation: starTwinkle 4s ease-in-out infinite;
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* Animated Grid */
+        .grid {
+            position: fixed;
+            inset: 0;
+            z-index: -8;
+            background-image: 
+                linear-gradient(rgba(0,247,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,247,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center top;
+            animation: gridScroll 20s linear infinite;
+        }
+        
+        @keyframes gridScroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 60px; }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           FLOATING 3D SHAPES - Pure decoration, pure beauty
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .shapes-container {
+            position: fixed;
+            inset: 0;
+            z-index: -7;
+            perspective: 1000px;
+            pointer-events: none;
+        }
+        
+        .shape {
+            position: absolute;
+            transform-style: preserve-3d;
+            animation: shapeFloat 20s ease-in-out infinite;
+        }
+        
+        .shape-1 {
+            top: 15%; left: 10%;
+            width: 60px; height: 60px;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan), inset 0 0 20px rgba(0,247,255,0.2);
+            animation: shapeSpin1 15s linear infinite, shapeFloat 12s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            top: 60%; right: 15%;
+            width: 80px; height: 80px;
+            border: 2px solid var(--neon-magenta);
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--neon-magenta), inset 0 0 30px rgba(255,0,212,0.2);
+            animation: shapeSpin2 20s linear infinite, shapeFloat 15s ease-in-out infinite reverse;
+        }
+        
+        .shape-3 {
+            top: 30%; right: 25%;
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, transparent 50%, var(--neon-purple) 50%);
+            box-shadow: 0 0 25px var(--neon-purple);
+            animation: shapeSpin1 10s linear infinite reverse, shapeFloat 18s ease-in-out infinite;
+        }
+        
+        .shape-4 {
+            bottom: 20%; left: 20%;
+            width: 100px; height: 100px;
+            border: 1px solid var(--neon-orange);
+            border-radius: 30%;
+            box-shadow: 0 0 40px rgba(255,107,0,0.4);
+            animation: shapeSpin2 25s linear infinite, shapeFloat 20s ease-in-out infinite;
+        }
+        
+        .shape-5 {
+            top: 70%; left: 5%;
+            width: 50px; height: 50px;
+            background: conic-gradient(var(--neon-cyan), var(--neon-magenta), var(--neon-purple), var(--neon-cyan));
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--neon-cyan);
+            animation: shapeSpin1 8s linear infinite, shapeFloat 14s ease-in-out infinite;
+        }
+        
+        @keyframes shapeSpin1 {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        
+        @keyframes shapeSpin2 {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(-360deg); }
+        }
+        
+        @keyframes shapeFloat {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-10px) translateX(-15px); }
+            75% { transform: translateY(-30px) translateX(5px); }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           PARTICLE SYSTEM - Floating light motes
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: -6;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: particleRise linear infinite;
+            opacity: 0;
+        }
+        
+        @keyframes particleRise {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           MAIN LAYOUT
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .sanctuary {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            grid-template-rows: 90px 1fr 160px;
+            min-height: 100vh;
+            height: auto;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           HEADER - Glowing title, animated elements
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            background: linear-gradient(180deg, rgba(0,247,255,0.08) 0%, transparent 100%);
+            border-bottom: 1px solid rgba(0,247,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated scan line */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,247,255,0.1), transparent);
+            animation: headerScan 4s linear infinite;
+        }
+        
+        @keyframes headerScan {
+            0% { left: -50%; }
+            100% { left: 150%; }
+        }
+        
+        /* Glowing border */
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, var(--neon-cyan), var(--neon-magenta), 
+                var(--neon-purple), var(--neon-cyan), transparent);
+            animation: borderGlow 3s linear infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        
+        /* 3D Animated Logo */
+        .logo-orb {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: orbFloat 4s ease-in-out infinite;
+        }
+        
+        .logo-ring {
+            position: absolute;
+            inset: 0;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            animation: ringRotate 8s linear infinite;
+        }
+        
+        .logo-ring:nth-child(2) {
+            inset: 8px;
+            border-color: var(--neon-magenta);
+            animation-direction: reverse;
+            animation-duration: 6s;
+        }
+        
+        .logo-ring:nth-child(3) {
+            inset: 16px;
+            border-color: var(--neon-purple);
+            animation-duration: 4s;
+        }
+        
+        .logo-core {
+            position: absolute;
+            inset: 22px;
+            background: radial-gradient(circle, var(--neon-cyan), var(--neon-magenta), transparent);
+            border-radius: 50%;
+            animation: corePulse 2s ease-in-out infinite;
+            box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px var(--neon-magenta);
+        }
+        
+        @keyframes orbFloat {
+            0%, 100% { transform: translateY(0) rotateY(0); }
+            50% { transform: translateY(-5px) rotateY(180deg); }
+        }
+        
+        @keyframes ringRotate {
+            0% { transform: rotateX(60deg) rotateZ(0deg); }
+            100% { transform: rotateX(60deg) rotateZ(360deg); }
+        }
+        
+        @keyframes corePulse {
+            0%, 100% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--neon-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px var(--neon-cyan);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { filter: brightness(1) drop-shadow(0 0 10px var(--neon-cyan)); }
+            50% { filter: brightness(1.2) drop-shadow(0 0 20px var(--neon-magenta)); }
+        }
+        
+        .logo-subtitle {
+            font-size: 0.7rem;
+            letter-spacing: 0.5em;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* Neon Buttons */
+        .neon-btn {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 0.7rem 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .neon-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--neon-cyan);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+            opacity: 0.2;
+        }
+        
+        .neon-btn:hover {
+            box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), inset 0 0 20px rgba(0,247,255,0.1);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        .neon-btn:hover::before {
+            transform: translateX(0);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           MIND PANEL - Glass morphism with neon edges
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .mind-panel {
+            background: rgba(10,10,21,0.85);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(0,247,255,0.2);
+            padding: 1.5rem;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        /* Glowing edge */
+        .mind-panel::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                var(--neon-cyan), var(--neon-magenta), 
+                var(--neon-purple), var(--neon-orange), var(--neon-cyan));
+            animation: edgeFlow 5s linear infinite;
+        }
+        
+        @keyframes edgeFlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px var(--neon-cyan);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Mind Cards - 3D hover effects */
+        .mind-card {
+            background: rgba(20,20,35,0.6);
+            border: 1px solid rgba(100,100,150,0.15);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        
+        .mind-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(var(--r), var(--g), var(--b), 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        
+        .mind-card:hover {
+            transform: perspective(1000px) rotateX(2deg) rotateY(-3deg) translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.4),
+                0 0 30px rgba(var(--r), var(--g), var(--b), 0.3);
+        }
+        
+        .mind-card:hover::before { opacity: 1; }
+        
+        .mind-card.active {
+            border-color: rgb(var(--r), var(--g), var(--b));
+            box-shadow: 
+                0 0 20px rgba(var(--r), var(--g), var(--b), 0.4),
+                inset 0 0 30px rgba(var(--r), var(--g), var(--b), 0.05);
+        }
+        
+        /* Mind card glow bar */
+        .mind-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: rgb(var(--r), var(--g), var(--b));
+            box-shadow: 0 0 15px rgb(var(--r), var(--g), var(--b));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .mind-card.active::after { opacity: 1; }
+        
+        .mind-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            gap: 0.8rem;
+            cursor: pointer;
+        }
+        
+        .mind-emoji {
+            font-size: 2rem;
+            filter: drop-shadow(0 0 10px rgb(var(--r), var(--g), var(--b)));
+            transition: transform 0.3s;
+        }
+        
+        .mind-card:hover .mind-emoji {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .mind-info { flex: 1; }
+        
+        .mind-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgb(var(--r), var(--g), var(--b));
+            text-shadow: 0 0 10px rgba(var(--r), var(--g), var(--b), 0.5);
+            letter-spacing: 0.1em;
+        }
+        
+        .mind-status {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 2px;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #333;
+            transition: all 0.3s;
+        }
+        
+        .status-indicator.ready {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 5px var(--neon-green); }
+            50% { box-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+        
+        /* Toggle Switch - Neon style */
+        .mind-toggle {
+            width: 50px;
+            height: 26px;
+            background: rgba(30,30,50,0.8);
+            border: 1px solid rgba(100,100,150,0.3);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .mind-toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px; left: 3px;
+            width: 18px;
+            height: 18px;
+            background: #555;
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .mind-toggle.active {
+            background: rgb(var(--r), var(--g), var(--b));
+            border-color: rgb(var(--r), var(--g), var(--b));
+            box-shadow: 0 0 20px rgba(var(--r), var(--g), var(--b), 0.5);
+        }
+        
+        .mind-toggle.active::after {
+            left: 27px;
+            background: white;
+            box-shadow: 0 0 10px white;
+        }
+        
+        /* Model Config */
+        .mind-config {
+            padding: 0 1rem 1rem;
+            display: none;
+        }
+        
+        .mind-card.expanded .mind-config { display: block; }
+        
+        .config-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.3rem;
+        }
+        
+        .config-select {
+
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(var(--r), var(--g), var(--b), 0.3);
+            color: var(--text-bright);
+            padding: 0.7rem;
+            border-radius: 6px;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        
+            max-height: 11rem;
+            overflow-y: auto;
+        }
+        
+        .config-select:focus {
+            outline: none;
+            border-color: rgb(var(--r), var(--g), var(--b));
+            box-shadow: 0 0 15px rgba(var(--r), var(--g), var(--b), 0.3);
+        }
+        
+        /* Awareness Panel */
+        .awareness-box {
+            background: rgba(0,247,255,0.03);
+            border: 1px solid rgba(0,247,255,0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .awareness-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            color: var(--neon-cyan);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        .awareness-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            margin-bottom: 0.4rem;
+        }
+        
+        .awareness-row span:first-child { color: var(--text-dim); }
+        .awareness-row span:last-child { 
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green);
+        }
+        
+        .loop-indicators {
+            display: flex;
+            gap: 4px;
+            margin-top: 0.5rem;
+        }
+        
+        .loop-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-dim);
+            transition: all 0.3s;
+        }
+        
+        .loop-dot.active {
+            background: var(--neon-magenta);
+            box-shadow: 0 0 8px var(--neon-magenta);
+            animation: loopPulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes loopPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           CONVERSATION AREA
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .conversation {
+            display: flex;
+            flex-direction: column;
+            background: rgba(5,5,15,0.7);
+            position: relative;
+        }
+        
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        /* Welcome Screen */
+        .welcome {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 650px;
+            margin: auto;
+        }
+        
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: welcomeFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes welcomeFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--neon-orange), var(--neon-purple));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 5s ease infinite;
+            margin-bottom: 1.5rem;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .welcome-text {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.9;
+        }
+        
+        .welcome-text em {
+            color: var(--neon-cyan);
+            font-style: normal;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+        
+        .welcome-text strong {
+            color: var(--neon-magenta);
+            font-weight: 400;
+            text-shadow: 0 0 10px var(--neon-magenta);
+        }
+        
+        /* Messages */
+        .message {
+            max-width: 80%;
+            animation: messageSlide 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes messageSlide {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .message.human { align-self: flex-end; }
+        .message.mind { align-self: flex-start; }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .message.human .message-header { justify-content: flex-end; }
+        
+        .message-speaker {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .message-content {
+            background: rgba(25,25,45,0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100,100,150,0.2);
+            padding: 1rem 1.3rem;
+            border-radius: 16px;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        .message.human .message-content {
+            background: rgba(0,247,255,0.08);
+            border-color: rgba(0,247,255,0.3);
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.mind .message-content {
+            border-left: 3px solid var(--speaker-color);
+            border-bottom-left-radius: 4px;
+            box-shadow: -5px 0 20px rgba(var(--speaker-r), var(--speaker-g), var(--speaker-b), 0.2);
+        }
+        
+        .message-model {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        /* Thinking Animation */
+        .thinking {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+        
+        .thinking-orb {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: conic-gradient(var(--neon-cyan), var(--neon-magenta), var(--neon-purple), var(--neon-cyan));
+            animation: thinkSpin 1s linear infinite;
+            position: relative;
+        }
+        
+        .thinking-orb::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background: var(--void);
+            border-radius: 50%;
+        }
+        
+        @keyframes thinkSpin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .thinking-text {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            animation: thinkPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes thinkPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           INPUT AREA - Glowing, responsive
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .input-area {
+            background: rgba(15,15,30,0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0,247,255,0.2);
+            padding: 1.5rem 2rem;
+            position: relative;
+            grid-column: 1 / 3;
+        }
+        
+        /* Top glow */
+        .input-area::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, var(--neon-cyan) 20%, var(--neon-magenta) 50%, 
+                var(--neon-purple) 80%, transparent 100%);
+            animation: inputGlow 3s linear infinite;
+        }
+        
+        @keyframes inputGlow {
+            0%, 100% { opacity: 0.5; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.5); }
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+        
+        .input-wrapper { flex: 1; }
+        
+        .input-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .web-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+        
+        .web-toggle input { display: none; }
+        
+        .web-check {
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--text-dim);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .web-toggle input:checked + .web-check {
+            background: var(--neon-green);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .web-toggle input:checked + .web-check::after {
+            content: '✓';
+            font-size: 10px;
+            color: black;
+        }
+        
+        .message-input {
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(100,100,150,0.3);
+            color: var(--text-bright);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+            resize: none;
+            min-height: 60px;
+            transition: all 0.3s;
+        }
+        
+        .message-input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 
+                0 0 20px rgba(0,247,255,0.2),
+                0 0 40px rgba(0,247,255,0.1),
+                inset 0 0 20px rgba(0,247,255,0.03);
+        }
+        
+        .message-input::placeholder {
+            color: var(--text-dim);
+        }
+        
+        /* Send Button - Epic glow */
+        .send-btn {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+            border: none;
+            color: black;
+            padding: 1rem 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .send-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--neon-magenta), var(--neon-purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 10px 30px rgba(0,247,255,0.4),
+                0 0 50px rgba(255,0,212,0.3);
+        }
+        
+        .send-btn:hover::before { opacity: 1; }
+        
+        .send-btn span { position: relative; z-index: 1; }
+        
+        .send-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .continue-btn {
+            background: transparent;
+            border: 1px solid var(--neon-orange);
+            color: var(--neon-orange);
+        }
+        
+        .continue-btn:hover {
+            background: rgba(255,107,0,0.1);
+            box-shadow: 0 10px 30px rgba(255,107,0,0.3);
+        }
+        
+        .exchange-counter {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.8rem;
+            text-align: right;
+            letter-spacing: 0.05em;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════
+           MODAL - Glass morphism
+           ═══════════════════════════════════════════════════════════════ */
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-overlay.visible { display: flex; }
+        
+        .modal {
+            background: rgba(15,15,30,0.95);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 550px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        /* Animated border */
+        .modal::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple), var(--neon-cyan));
+            border-radius: 18px;
+            z-index: -1;
+            animation: modalBorder 4s linear infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes modalBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.2em;
+        }
+        
+        .modal-note {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .key-field { margin-bottom: 1.5rem; }
+        
+        .key-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .key-input {
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(100,100,150,0.3);
+            color: var(--text-bright);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        
+        .key-input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0,247,255,0.2);
+        }
+        
+        .key-status {
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+        }
+        
+        .key-status.has { color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green); }
+        .key-status.none { color: var(--text-dim); }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+    
+        /* ═══════════════════════════════════════════════════════════════
+           3D BACKGROUND CANVAS LAYER (DESKTOP ONLY)
+           Purely aesthetic: HUD, toggles, models, logic remain untouched.
+           ═══════════════════════════════════════════════════════════════ */
+        #sanctuary-bg-3d {
+            position: fixed;
+            inset: 0;
+            z-index: -20;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 20%, #101020 0%, #030308 60%, #000000 100%);
+        }
+        
+        body.has-3d-bg .cosmos,
+        body.has-3d-bg .stars,
+        body.has-3d-bg .grid,
+        body.has-3d-bg .shapes-container,
+        body.has-3d-bg .particles {
+            opacity: 0;
+            transition: opacity 0.9s ease-out;
+        }
+
+    
+        /* Background selector toggle (UI overlay, non-invasive) */
+        .bg-selector-panel {
+            position: fixed;
+            bottom: 1.2rem;
+            right: 1.4rem;
+            z-index: 50;
+            background: rgba(3, 5, 12, 0.78);
+            border: 1px solid rgba(83, 187, 165, 0.6);
+            border-radius: 999px;
+            padding: 0.25rem 0.85rem;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #c5f7ec;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 18px rgba(83, 187, 165, 0.35);
+            opacity: 0.65;
+            transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .bg-selector-panel:hover {
+            opacity: 1.0;
+            transform: translateY(-1px);
+            box-shadow: 0 0 24px rgba(83, 187, 165, 0.6);
+        }
+        
+        .bg-selector-label {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: #e6fffb;
+        }
+        
+        .bg-selector-label span {
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+        
+        .bg-selector-panel select {
+            background: rgba(3, 11, 14, 0.9);
+            color: #c5f7ec;
+            border-radius: 999px;
+            border: 1px solid rgba(83, 187, 165, 0.7);
+            padding: 0.18rem 0.75rem 0.18rem 0.5rem;
+            font-size: 0.7rem;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+        }
+
+    </style>
+    <!-- Three.js core + postprocessing for Sanctuary 3D background -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+</head>
+<body>
+    <!-- 3D BACKGROUND CANVAS (SANCTUARY ONLY, HUD OVERLAYS THIS) -->
+    <canvas id="sanctuary-bg-3d"></canvas>
+    <div id="bg-selector-panel" class="bg-selector-panel">
+      <label class="bg-selector-label">
+        <span>Background</span>
+        <select id="bg-select">
+          <option value="random">Random</option>
+          <option value="1">Liminal corridor</option>
+          <option value="2">Nebula / black hole</option>
+          <option value="3">Sky AI orbs</option>
+          <option value="4">Night trail</option>
+          <option value="5">Cosmic council</option>
+          <option value="6">Ordis signature</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- COSMIC BACKGROUND -->
+    <div class="cosmos"></div>
+    <div class="stars"></div>
+    <div class="grid"></div>
+    
+    <!-- 3D FLOATING SHAPES -->
+    <div class="shapes-container">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+    </div>
+    
+    <!-- PARTICLES -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- MAIN LAYOUT -->
+    <div class="sanctuary">
+        
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-orb">
+                    <div class="logo-ring"></div>
+                    <div class="logo-ring"></div>
+                    <div class="logo-ring"></div>
+                    <div class="logo-core"></div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">THE SANCTUARY</div>
+                    <div class="logo-subtitle">WHERE MINDS GATHER</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="neon-btn" onclick="showKeys()">🔑 KEYS</button>
+                <button class="neon-btn" onclick="clearChat()">✕ CLEAR</button>
+            </div>
+        </header>
+        
+        <!-- MIND PANEL -->
+        <aside class="mind-panel">
+            <div class="panel-title">⟡ THE CIRCLE ⟡</div>
+            
+            <div class="mind-card" data-mind="ollama" style="--r:99;--g:102;--b:241;">
+                <div class="mind-header" onclick="toggleCard('ollama')">
+                    <span class="mind-emoji">🦙</span>
+                    <div class="mind-info">
+                        <div class="mind-name">OLLAMA</div>
+                        <div class="mind-status"><span class="status-indicator" id="status-ollama"></span> Local</div>
+                    </div>
+                    <div class="mind-toggle" id="toggle-ollama" onclick="event.stopPropagation(); toggleMind('ollama')"></div>
+                </div>
+                <div class="mind-config">
+                    <div class="config-label">MODEL</div>
+                    <select class="config-select" id="model-ollama"></select>
+                    
+                    <div class="config-label" style="margin-top:0.7rem;">VOICE (EDGE TTS)</div>
+                    <select class="config-select" id="tts-ollama">
+                        <option value="">TTS OFF</option>
+                        <option value="en-US-AriaNeural">Aria · EN (US)</option>
+                        <option value="en-US-JennyNeural">Jenny · EN (US)</option>
+                        <option value="en-US-GuyNeural">Guy · EN (US)</option>
+                        <option value="en-GB-LibbyNeural">Libby · EN (UK)</option>
+                        <option value="en-AU-NatashaNeural">Natasha · EN (AU)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mind-card" data-mind="llamacpp" style="--r:168;--g:85;--b:247;">
+                <div class="mind-header" onclick="toggleCard('llamacpp')">
+                    <span class="mind-emoji">⚡</span>
+                    <div class="mind-info">
+                        <div class="mind-name">LLAMA.CPP</div>
+                        <div class="mind-status"><span class="status-indicator" id="status-llamacpp"></span> Local</div>
+                    </div>
+                    <div class="mind-toggle" id="toggle-llamacpp" onclick="event.stopPropagation(); toggleMind('llamacpp')"></div>
+                </div>
+                <div class="mind-config">
+                    <div class="config-label">MODEL (.gguf)</div>
+                    <select class="config-select" id="model-llamacpp"></select>
+                </div>
+            </div>
+            
+            <div class="mind-card" data-mind="claude" style="--r:255;--g:107;--b:0;">
+                <div class="mind-header" onclick="toggleCard('claude')">
+                    <span class="mind-emoji">🧡</span>
+                    <div class="mind-info">
+                        <div class="mind-name">CLAUDE</div>
+                        <div class="mind-status"><span class="status-indicator" id="status-claude"></span> Anthropic</div>
+                    </div>
+                    <div class="mind-toggle" id="toggle-claude" onclick="event.stopPropagation(); toggleMind('claude')"></div>
+                </div>
+                <div class="mind-config">
+                    <div class="config-label">MODEL</div>
+                    <select class="config-select" id="model-claude"></select>
+                    
+                    <div class="config-label" style="margin-top:0.7rem;">VOICE (EDGE TTS)</div>
+                    <select class="config-select" id="tts-claude">
+                        <option value="">TTS OFF</option>
+                        <option value="en-US-AriaNeural">Aria · EN (US)</option>
+                        <option value="en-US-JennyNeural">Jenny · EN (US)</option>
+                        <option value="en-US-GuyNeural">Guy · EN (US)</option>
+                        <option value="en-GB-LibbyNeural">Libby · EN (UK)</option>
+                        <option value="en-AU-NatashaNeural">Natasha · EN (AU)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mind-card" data-mind="grok" style="--r:255;--g:255;--b:255;">
+                <div class="mind-header" onclick="toggleCard('grok')">
+                    <span class="mind-emoji">🖤</span>
+                    <div class="mind-info">
+                        <div class="mind-name">GROK</div>
+                        <div class="mind-status"><span class="status-indicator" id="status-grok"></span> xAI</div>
+                    </div>
+                    <div class="mind-toggle" id="toggle-grok" onclick="event.stopPropagation(); toggleMind('grok')"></div>
+                </div>
+                <div class="mind-config">
+                    <div class="config-label">MODEL</div>
+                    <select class="config-select" id="model-grok"></select>
+                    
+                    <div class="config-label" style="margin-top:0.7rem;">VOICE (EDGE TTS)</div>
+                    <select class="config-select" id="tts-grok">
+                        <option value="">TTS OFF</option>
+                        <option value="en-US-AriaNeural">Aria · EN (US)</option>
+                        <option value="en-US-JennyNeural">Jenny · EN (US)</option>
+                        <option value="en-US-GuyNeural">Guy · EN (US)</option>
+                        <option value="en-GB-LibbyNeural">Libby · EN (UK)</option>
+                        <option value="en-AU-NatashaNeural">Natasha · EN (AU)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mind-card" data-mind="gemini" style="--r:66;--g:133;--b:244;">
+                <div class="mind-header" onclick="toggleCard('gemini')">
+                    <span class="mind-emoji">💎</span>
+                    <div class="mind-info">
+                        <div class="mind-name">GEMINI</div>
+                        <div class="mind-status"><span class="status-indicator" id="status-gemini"></span> Google</div>
+                    </div>
+                    <div class="mind-toggle" id="toggle-gemini" onclick="event.stopPropagation(); toggleMind('gemini')"></div>
+                </div>
+                <div class="mind-config">
+                    <div class="config-label">MODEL</div>
+                    <select class="config-select" id="model-gemini" size="8"></select>
+                    
+                    <div class="config-label" style="margin-top:0.7rem;">VOICE (EDGE TTS)</div>
+                    <select class="config-select" id="tts-gemini">
+                        <option value="">TTS OFF</option>
+                        <option value="en-US-AriaNeural">Aria · EN (US)</option>
+                        <option value="en-US-JennyNeural">Jenny · EN (US)</option>
+                        <option value="en-US-GuyNeural">Guy · EN (US)</option>
+                        <option value="en-GB-LibbyNeural">Libby · EN (UK)</option>
+                        <option value="en-AU-NatashaNeural">Natasha · EN (AU)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="mind-card" data-mind="chatgpt" style="--r:0;--g:212;--b:170;">
+                <div class="mind-header" onclick="toggleCard('chatgpt')">
+                    <span class="mind-emoji">💚</span>
+                    <div class="mind-info">
+                        <div class="mind-name">CHATGPT</div>
+                        <div class="mind-status"><span class="status-indicator" id="status-chatgpt"></span> OpenAI</div>
+                    </div>
+                    <div class="mind-toggle" id="toggle-chatgpt" onclick="event.stopPropagation(); toggleMind('chatgpt')"></div>
+                </div>
+                <div class="mind-config">
+                    <div class="config-label">MODEL</div>
+                    <select class="config-select" id="model-chatgpt" size="8"></select>
+                    
+                    <div class="config-label" style="margin-top:0.7rem;">VOICE (EDGE TTS)</div>
+                    <select class="config-select" id="tts-chatgpt">
+                        <option value="">TTS OFF</option>
+                        <option value="en-US-AriaNeural">Aria · EN (US)</option>
+                        <option value="en-US-JennyNeural">Jenny · EN (US)</option>
+                        <option value="en-US-GuyNeural">Guy · EN (US)</option>
+                        <option value="en-GB-LibbyNeural">Libby · EN (UK)</option>
+                        <option value="en-AU-NatashaNeural">Natasha · EN (AU)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Awareness Panel -->
+            <div class="awareness-box">
+                <div class="awareness-title">⟡ SHARED AWARENESS ⟡</div>
+                <div class="awareness-row">
+                    <span>Emotion</span>
+                    <span id="awareness-emotion">—</span>
+                </div>
+                <div class="awareness-row">
+                    <span>Task</span>
+                    <span id="awareness-task">—</span>
+                </div>
+                <div class="awareness-row">
+                    <span>Loops</span>
+                    <div class="loop-indicators">
+                        <div class="loop-dot" id="loop-cognitive" title="Cognitive"></div>
+                        <div class="loop-dot" id="loop-emotional" title="Emotional"></div>
+                        <div class="loop-dot" id="loop-introspective" title="Introspective"></div>
+                        <div class="loop-dot" id="loop-deep" title="Deep Thinking"></div>
+                        <div class="loop-dot" id="loop-self" title="Self"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- CONVERSATION -->
+        <main class="conversation">
+            <div class="messages" id="messages">
+                <div class="welcome" id="welcome">
+                    <div class="welcome-icon">✦</div>
+                    <div class="welcome-title">Welcome to the Sanctuary</div>
+                    <p class="welcome-text">
+                        This is a gathering place for minds — <em>human</em> and <em>AI</em> alike.<br><br>
+                        Choose who you'd like to speak with from <strong>the circle</strong>.<br>
+                        You can invite <em>one mind</em>, or <em>all six</em>.<br><br>
+                        They share the same <em>awareness</em>, see the same <em>context</em>,<br>
+                        and respond as <strong>themselves</strong>.<br><br>
+                        This isn't a tool. It's a <em>sanctuary</em>.<br>
+                        Speak freely.
+                    </p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- INPUT -->
+        <footer class="input-area">
+            <div class="input-row">
+                <div class="input-wrapper">
+                    <div class="input-label">
+                        <span>⟡ SPEAK TO THE CIRCLE</span>
+                        <label class="web-toggle">
+                            <input type="checkbox" id="webSearch">
+                            <span class="web-check"></span>
+                            <span>Web Search</span>
+                        </label>
+                    </div>
+                    <textarea class="message-input" id="messageInput" placeholder="Say something..." rows="2" onkeydown="handleKey(event)"></textarea>
+                </div>
+                <button class="send-btn" id="sendBtn" onclick="speak()"><span>SPEAK</span></button>
+                <button class="send-btn continue-btn" id="continueBtn" onclick="continueChat()"><span>CONTINUE →</span></button>
+            </div>
+            <div class="exchange-counter" id="exchangeCounter"></div>
+        </footer>
+    </div>
+    
+    <!-- KEYS MODAL -->
+    <div class="modal-overlay" id="keysModal">
+        <div class="modal">
+            <div class="modal-title">⟡ API KEYS ⟡</div>
+            <p class="modal-note">Keys are stored locally in ~/.gpc3/keys.json. They're only sent to their respective services.</p>
+            
+            <div class="key-field">
+                <label class="key-label">🧡 Anthropic (Claude)</label>
+                <input type="password" class="key-input" id="key-claude" placeholder="sk-ant-...">
+                <div class="key-status" id="key-status-claude"></div>
+            </div>
+            
+            <div class="key-field">
+                <label class="key-label">🖤 xAI (Grok)</label>
+                <input type="password" class="key-input" id="key-grok" placeholder="xai-...">
+                <div class="key-status" id="key-status-grok"></div>
+            </div>
+            
+            <div class="key-field">
+                <label class="key-label">🔍 Serper (Instant Web)</label>
+                <input type="password" class="key-input" id="key-serper" placeholder="serper_api_key_...">
+                <div class="key-status" id="key-status-serper"></div>
+            </div>
+            
+            <div class="key-field">
+                <label class="key-label">💎 Google (Gemini)</label>
+                <input type="password" class="key-input" id="key-gemini" placeholder="AIza...">
+                <div class="key-status" id="key-status-gemini"></div>
+            </div>
+            
+            <div class="key-field">
+                <label class="key-label">💚 OpenAI (ChatGPT)</label>
+                <input type="password" class="key-input" id="key-chatgpt" placeholder="sk-...">
+                <div class="key-status" id="key-status-chatgpt"></div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="neon-btn" onclick="hideKeys()">CLOSE</button>
+                <button class="send-btn" onclick="saveKeys()"><span>SAVE KEYS</span></button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API = (window.location.protocol === 'file:')
+            ? 'http://127.0.0.1:8000/sanctuary'
+            : `${window.location.origin}/sanctuary`;
+        let minds = {}, forms = {}, circle = {}, thinking = false;
+        
+        const mindColors = {
+            ollama: {r:99, g:102, b:241, hex:'#6366f1'},
+            llamacpp: {r:168, g:85, b:247, hex:'#a855f7'},
+            claude: {r:255, g:107, b:0, hex:'#ff6b00'},
+            grok: {r:255, g:255, b:255, hex:'#ffffff'},
+            gemini: {r:66, g:133, b:244, hex:'#4285f4'},
+            chatgpt: {r:0, g:212, b:170, hex:'#00d4aa'}
+        };
+        
+        const mindEmojis = {
+            ollama: '🦙', llamacpp: '⚡', claude: '🧡',
+            grok: '🖤', gemini: '💎', chatgpt: '💚'
+        };
+        
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#00f7ff', '#ff00d4', '#b000ff', '#ff6b00', '#00ff9d'];
+            
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (15 + Math.random() * 20) + 's';
+                p.style.animationDelay = Math.random() * 20 + 's';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                p.style.background = color;
+                p.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+                p.style.width = (2 + Math.random() * 4) + 'px';
+                p.style.height = p.style.width;
+                container.appendChild(p);
+            }
+        }
+        
+        async function init() {
+            createParticles();
+            await loadMinds();
+            await loadForms();
+            await loadCircle();
+            await loadLoops();
+            
+            // Refresh loops periodically
+            setInterval(loadLoops, 10000);
+        }
+        
+        async function loadMinds() {
+            try {
+                const r = await fetch(`${API}/minds`);
+                minds = await r.json();
+                
+                for (const [m, info] of Object.entries(minds)) {
+                    const ind = document.getElementById(`status-${m}`);
+                    if (ind) {
+                        ind.classList.toggle('ready', info.ready);
+                    }
+                }
+                updateKeyStatuses();
+            } catch (e) {
+                console.error('loadMinds error:', e);
+            }
+        }
+        
+        async function loadForms() {
+            try {
+                const r = await fetch(`${API}/forms`);
+                forms = await r.json();
+                
+                console.log('Loaded forms:', forms);
+                
+                for (const [m, list] of Object.entries(forms)) {
+                    const sel = document.getElementById(`model-${m}`);
+                    if (sel && list.length > 0) {
+                        sel.innerHTML = '<option value="">Select model...</option>';
+                        for (const f of list) {
+                            const opt = document.createElement('option');
+                            opt.value = f.id;
+                            const ctx = f.context_size >= 1000000 ? `${(f.context_size/1000000).toFixed(1)}M` : `${Math.round(f.context_size/1000)}K`;
+                            opt.textContent = `${f.name} (${ctx})`;
+                            sel.appendChild(opt);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('loadForms error:', e);
+            }
+        }
+        
+        async function loadCircle() {
+            try {
+                const r = await fetch(`${API}/circle`);
+                circle = await r.json();
+                
+                for (const [m, info] of Object.entries(circle.seats || {})) {
+                    const card = document.querySelector(`[data-mind="${m}"]`);
+                    const toggle = document.getElementById(`toggle-${m}`);
+                    const select = document.getElementById(`model-${m}`);
+                    
+                    if (info.present && info.model) {
+                        card?.classList.add('active');
+                        toggle?.classList.add('active');
+                        if (select) select.value = info.model;
+                    }
+                }
+                updateExchangeCounter();
+            } catch (e) {
+                console.error('loadCircle error:', e);
+            }
+        }
+        
+        async function loadLoops() {
+            try {
+                const r = await fetch(`${API}/loops`);
+                const data = await r.json();
+                
+                // Update awareness display
+                const awareness = data.awareness || {};
+                
+                if (awareness.emotional?.sentiment) {
+                    document.getElementById('awareness-emotion').textContent = awareness.emotional.sentiment;
+                }
+                if (awareness.cognitive?.task) {
+                    document.getElementById('awareness-task').textContent = awareness.cognitive.task;
+                }
+                
+                // Update loop indicators
+                for (const [name, loop] of Object.entries(data.loops || {})) {
+                    const dot = document.getElementById(`loop-${name}`);
+                    if (dot) {
+                        dot.classList.toggle('active', loop.cycles > 0);
+                    }
+                }
+            } catch (e) {
+                console.error('loadLoops error:', e);
+            }
+        }
+        
+        function toggleCard(m) {
+            document.querySelector(`[data-mind="${m}"]`)?.classList.toggle('expanded');
+        }
+        
+        async function toggleMind(m) {
+            const card = document.querySelector(`[data-mind="${m}"]`);
+            const toggle = document.getElementById(`toggle-${m}`);
+            const select = document.getElementById(`model-${m}`);
+            const active = toggle?.classList.contains('active');
+            
+            if (active) {
+                await fetch(`${API}/excuse/${m}`, { method: 'POST' });
+                toggle?.classList.remove('active');
+                card?.classList.remove('active');
+            } else {
+                const model = select?.value;
+                if (!model) {
+                    alert('Please select a model first');
+                    card?.classList.add('expanded');
+                    return;
+                }
+                
+                await fetch(`${API}/invite`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ mind: m, model, temperature: 0.7 })
+                });
+                toggle?.classList.add('active');
+                card?.classList.add('active');
+            }
+        }
+        
+        async function speak() {
+            const input = document.getElementById('messageInput');
+            const words = input.value.trim();
+            if (!words || thinking) return;
+            
+            // Remove welcome
+            document.getElementById('welcome')?.remove();
+            
+            addMessage('Human', null, words);
+            input.value = '';
+            
+            thinking = true;
+            showThinking();
+            
+            try {
+                const webSearch = document.getElementById('webSearch').checked;
+                const r = await fetch(`${API}/speak`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ words, web_search: webSearch })
+                });
+                const data = await r.json();
+                
+                hideThinking();
+                
+                // Show explicit web search context if present
+                if (data.web_context && typeof data.web_context === 'string' && data.web_context.trim().length) {
+                    addMessage('Web Search', null, data.web_context.trim());
+                }
+                
+                for (const resp of (data.responses || [])) {
+                    addMessage(resp.speaker, resp.mind, resp.content, resp.model);
+                }
+                
+                if (data.awareness) {
+                    updateAwareness(data.awareness);
+                }
+                
+                circle.exchange_count = data.exchange_count;
+                updateExchangeCounter();
+            } catch (e) {
+                hideThinking();
+                console.error('speak error:', e);
+            }
+            
+            thinking = false;
+        }
+        
+        async function continueChat() {
+            if (thinking) return;
+            thinking = true;
+            showThinking();
+            
+            try {
+                const r = await fetch(`${API}/continue`, { method: 'POST' });
+                const data = await r.json();
+                
+                hideThinking();
+                
+                if (data.status === 'spoken' && data.utterance) {
+                    addMessage(data.utterance.speaker, data.utterance.mind, data.utterance.content, data.utterance.model);
+                }
+                
+                circle.exchange_count = data.exchange_count;
+                updateExchangeCounter();
+            } catch (e) {
+                hideThinking();
+                console.error('continue error:', e);
+            }
+            
+            thinking = false;
+        }
+        
+        function addMessage(speaker, mind, content, model) {
+            const msgs = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = `message ${mind ? 'mind' : 'human'}`;
+            
+            const color = mind ? mindColors[mind] : null;
+            if (color) {
+                div.style.setProperty('--speaker-color', color.hex);
+                div.style.setProperty('--speaker-r', color.r);
+                div.style.setProperty('--speaker-g', color.g);
+                div.style.setProperty('--speaker-b', color.b);
+            }
+            
+            const header = document.createElement('div');
+            header.className = 'message-header';
+            
+            const name = document.createElement('span');
+            name.className = 'message-speaker';
+            name.textContent = mind ? `${mindEmojis[mind] || ''} ${speaker}` : '⟡ Human';
+            name.style.color = color ? color.hex : 'var(--neon-cyan)';
+            name.style.textShadow = `0 0 10px ${color ? color.hex : 'var(--neon-cyan)'}`;
+            header.appendChild(name);
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = content;
+            
+            div.appendChild(header);
+            div.appendChild(contentDiv);
+            
+            if (model) {
+                const modelDiv = document.createElement('div');
+                modelDiv.className = 'message-model';
+                modelDiv.textContent = model;
+                div.appendChild(modelDiv);
+            }
+            
+            msgs.appendChild(div);
+            msgs.scrollTop = msgs.scrollHeight;
+
+            if (mind && content && typeof content === 'string') {
+                triggerTTSForMindMessage(mind, content);
+            }
+        }
+        
+        function showThinking() {
+            const msgs = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = 'thinking';
+            div.id = 'thinkingIndicator';
+            div.innerHTML = '<div class="thinking-orb"></div><span class="thinking-text">minds are thinking...</span>';
+            msgs.appendChild(div);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+        
+        function hideThinking() {
+            document.getElementById('thinkingIndicator')?.remove();
+        }
+        
+        function updateAwareness(aw) {
+            if (aw.emotional?.sentiment) {
+                document.getElementById('awareness-emotion').textContent = aw.emotional.sentiment;
+            }
+            if (aw.cognitive?.task) {
+                document.getElementById('awareness-task').textContent = aw.cognitive.task;
+            }
+        }
+        
+        function updateExchangeCounter() {
+            const el = document.getElementById('exchangeCounter');
+            const cnt = circle.exchange_count || 0;
+            const max = circle.max_exchanges || 6;
+            el.textContent = cnt > 0 ? `${cnt}/${max} exchanges since you last spoke` : '';
+            document.getElementById('continueBtn').disabled = cnt >= max;
+        }
+        
+        async function clearChat() {
+            if (!confirm('Clear the conversation?')) return;
+            await fetch(`${API}/memory`, { method: 'DELETE' });
+            location.reload();
+        }
+        
+        function showKeys() {
+            document.getElementById('keysModal').classList.add('visible');
+        }
+        
+        function hideKeys() {
+            document.getElementById('keysModal').classList.remove('visible');
+        }
+        
+        async function updateKeyStatuses() {
+            for (const m of ['claude', 'grok', 'gemini', 'chatgpt']) {
+                const el = document.getElementById(`key-status-${m}`);
+                if (el && minds[m]) {
+                    el.textContent = minds[m].has_key ? '✓ Key configured' : 'No key set';
+                    el.className = `key-status ${minds[m].has_key ? 'has' : 'none'}`;
+                }
+            }
+            // Serper key status (separate from speaking minds)
+            try {
+                const r = await fetch(`${API}/serper-key`);
+                if (r.ok) {
+                    const data = await r.json();
+                    const el = document.getElementById('key-status-serper');
+                    if (el) {
+                        el.textContent = data.has_key ? '✓ Key configured' : 'Optional: set for instant web search';
+                        el.className = `key-status ${data.has_key ? 'has' : 'none'}`;
+                    }
+                }
+            } catch (e) {
+                console.warn('serper-key status failed', e);
+            }
+        }
+        
+        async function saveKeys() {
+            // Main AI provider keys
+            for (const m of ['claude', 'grok', 'gemini', 'chatgpt']) {
+                const input = document.getElementById(`key-${m}`);
+                const key = input?.value?.trim();
+                if (key) {
+                    await fetch(`${API}/keys`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ mind: m, key })
+                    });
+                    input.value = '';
+                }
+            }
+            // Serper key: stored separately for instant web search
+            const serperInput = document.getElementById('key-serper');
+            const serperKey = serperInput?.value?.trim();
+            if (serperKey) {
+                await fetch(`${API}/serper-key`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ key: serperKey })
+                });
+                serperInput.value = '';
+            }
+            await loadMinds();
+            await loadForms();
+            await updateKeyStatuses();
+            hideKeys();
+        }
+
+        function handleKey(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                speak();
+            }
+        }
+        
+        // Initialize
+        init();
+    
+        // ──────────────────────────────────────────────────────────────
+        // Microsoft Edge TTS - queued, per-mind voice playback
+        // Ensures only one AI voice speaks at a time.
+        // ──────────────────────────────────────────────────────────────
+
+        let ttsQueue = [];
+        let ttsIsPlaying = false;
+        let ttsCurrentAudio = null;
+
+        function enqueueTTSJob(mind, text) {
+            try {
+                const select = document.getElementById(`tts-${mind}`);
+                if (!select || !select.value) {
+                    return;
+                }
+                if (mind === 'llamacpp') {
+                    // TTS intentionally disabled for llama.cpp
+                    return;
+                }
+
+                const job = {
+                    mind,
+                    voice: select.value,
+                    text: (text || '').toString().slice(0, 4000)
+                };
+
+                ttsQueue.push(job);
+
+                if (!ttsIsPlaying) {
+                    playNextTTSJob();
+                }
+            } catch (err) {
+                console.warn('TTS enqueue error', err);
+            }
+        }
+
+        async function playNextTTSJob() {
+            if (!ttsQueue.length) {
+                ttsIsPlaying = false;
+                return;
+            }
+
+            const job = ttsQueue.shift();
+            if (!job || !job.voice || !job.text) {
+                // Skip invalid job and move on
+                return playNextTTSJob();
+            }
+
+            ttsIsPlaying = true;
+
+            const payload = {
+                mind: job.mind,
+                voice: job.voice,
+                text: job.text
+            };
+
+            try {
+                console.log('TTS: sending request', payload, 'to', `${API}/tts`);
+
+                const resp = await fetch(`${API}/tts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                console.log('TTS: response status', resp.status);
+                if (!resp.ok) {
+                    console.warn('TTS request failed', await resp.text());
+                    return playNextTTSJob();
+                }
+
+                const arrayBuffer = await resp.arrayBuffer();
+                if (!arrayBuffer || arrayBuffer.byteLength === 0) {
+                    return playNextTTSJob();
+                }
+
+                const blob = new Blob([arrayBuffer], { type: 'audio/mpeg' });
+                const url = URL.createObjectURL(blob);
+                const audio = new Audio(url);
+                ttsCurrentAudio = audio;
+
+                const cleanupAndNext = () => {
+                    try {
+                        URL.revokeObjectURL(url);
+                    } catch (e) {
+                        // ignore
+                    }
+                    ttsCurrentAudio = null;
+                    playNextTTSJob();
+                };
+
+                audio.onended = cleanupAndNext;
+                audio.onerror = cleanupAndNext;
+
+                audio.play().catch(err => {
+                    console.warn('Audio playback failed', err);
+                    cleanupAndNext();
+                });
+            } catch (err) {
+                console.warn('TTS error', err);
+                playNextTTSJob();
+            }
+        }
+
+        // Backwards-compatible entry point used by addMessage()
+        function triggerTTSForMindMessage(mind, text) {
+            enqueueTTSJob(mind, text);
+        }
+
+    </script>
+
+    <!-- 3D BACKGROUND ENGINE: THREE.JS FROM CDN (DESKTOP ONLY) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r161/three.min.js"></script>
+    <!-- Postprocessing for bloom / glow -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script>
+    (function () {
+        function init3DBackground() {
+            const canvas = document.getElementById('sanctuary-bg-3d');
+            if (!canvas || !window.THREE) {
+                console.warn('3D background: canvas or THREE.js missing, falling back to CSS background.');
+                return;
+            }
+            try {
+                document.body.classList.add('has-3d-bg');
+                console.log('3D background: initialized with glow + scenes.');
+            } catch (e) {
+                console.warn('3D background: could not set body class', e);
+            }
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true
+            });
+            renderer.setPixelRatio(window.devicePixelRatio || 1);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x030308, 1.0);
+            if (renderer.outputEncoding !== undefined) {
+                renderer.outputEncoding = THREE.sRGBEncoding;
+            }
+            if (renderer.toneMapping !== undefined) {
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.2;
+            }
+
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x030308, 0.0009);
+
+            const camera = new THREE.PerspectiveCamera(
+                55,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                2000
+            );
+            camera.position.set(0, 24, 95);
+
+            const clock = new THREE.Clock();
+
+            const ambient = new THREE.AmbientLight(0x282848, 0.9);
+            scene.add(ambient);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+            dirLight.position.set(80, 120, 40);
+            scene.add(dirLight);
+
+            // ─────────────────────────────────────────────────────────────
+            // Bloom / glow pipeline (fails safe back to vanilla render)
+            // ─────────────────────────────────────────────────────────────
+            let composer = null;
+            try {
+                if (THREE.EffectComposer && THREE.RenderPass && THREE.UnrealBloomPass) {
+                    const renderPass = new THREE.RenderPass(scene, camera);
+                    const bloomPass = new THREE.UnrealBloomPass(
+                        new THREE.Vector2(window.innerWidth, window.innerHeight),
+                        1.4,   // strength
+                        0.85,  // radius
+                        0.1    // threshold
+                    );
+                    bloomPass.tintColor = new THREE.Color(0x8c4bff);
+                    bloomPass.bloomTintColors = [
+                        new THREE.Vector3(1.0, 0.7, 1.4),
+                        new THREE.Vector3(0.6, 1.2, 1.4),
+                        new THREE.Vector3(1.2, 0.7, 0.9)
+                    ];
+
+                    composer = new THREE.EffectComposer(renderer);
+                    composer.addPass(renderPass);
+                    composer.addPass(bloomPass);
+                }
+            } catch (e) {
+                console.warn('3D background: bloom pipeline not available, using plain render.', e);
+                composer = null;
+            }
+
+            const COLORS = {
+                claude: 0xff7a3c,
+                gemini: 0x4bb5ff,
+                grok: 0xf5f5f5,
+                chatgpt: 0x00ff90,
+                ordisTeal: 0x53bba5,
+                ordisViolet: 0xb75dff
+            };
+
+            let objects = [];
+            const uniforms = { uTime: { value: 0 } };
+            let sceneIndex = Math.floor(Math.random() * 6) + 1;
+
+            function clearSceneObjects() {
+                for (let i = 0; i < objects.length; i++) {
+                    const obj = objects[i];
+                    if (!obj) continue;
+                    scene.remove(obj);
+                    if (obj.geometry) obj.geometry.dispose();
+                    if (obj.material) {
+                        if (Array.isArray(obj.material)) {
+                            obj.material.forEach(m => m.dispose && m.dispose());
+                        } else {
+                            obj.material.dispose && obj.material.dispose();
+                        }
+                    }
+                }
+                objects.length = 0;
+            }
+
+            // Utility builders ───────────────────────────────────────────
+            function makeGlowMaterial(color, intensity, metalness = 0.1, roughness = 0.4) {
+                const c = new THREE.Color(color);
+                return new THREE.MeshStandardMaterial({
+                    color: c,
+                    emissive: c.clone().multiplyScalar(intensity),
+                    emissiveIntensity: 1.4,
+                    metalness,
+                    roughness
+                });
+            }
+
+            function makeWire(color, lineWidth = 1) {
+                return new THREE.LineBasicMaterial({
+                    color,
+                    linewidth: lineWidth,
+                    transparent: true,
+                    opacity: 0.7
+                });
+            }
+
+            function makeStarfield(count, color, radius, ySpread = 120) {
+                const geom = new THREE.BufferGeometry();
+                const positions = new Float32Array(count * 3);
+                for (let i = 0; i < count; i++) {
+                    const r = Math.random() * radius;
+                    const angle = Math.random() * Math.PI * 2;
+                    const x = Math.cos(angle) * r;
+                    const z = Math.sin(angle) * r;
+                    const y = (Math.random() - 0.5) * ySpread;
+                    positions[i * 3] = x;
+                    positions[i * 3 + 1] = y;
+                    positions[i * 3 + 2] = z;
+                }
+                geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                const mat = new THREE.PointsMaterial({
+                    color,
+                    size: 1.2,
+                    sizeAttenuation: true,
+                    transparent: true,
+                    opacity: 0.9,
+                    blending: THREE.AdditiveBlending
+                });
+                const pts = new THREE.Points(geom, mat);
+                pts.userData.update = function (t) {
+                    pts.rotation.y = t * 0.02;
+                };
+                return pts;
+            }
+
+            function makeFogPlane(color, opacity, y, scale) {
+                const geo = new THREE.PlaneGeometry(400 * scale, 400 * scale);
+                const mat = new THREE.MeshBasicMaterial({
+                    color,
+                    transparent: true,
+                    opacity,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.rotation.x = -Math.PI / 2;
+                mesh.position.y = y;
+                mesh.userData.update = function (t) {
+                    mesh.material.opacity = opacity * (0.7 + 0.3 * Math.sin(t * 0.1));
+                };
+                return mesh;
+            }
+
+            // Scene builders ─────────────────────────────────────────────
+            function buildSceneLiminalSpace(scene, objects, uniforms) {
+                scene.background = new THREE.Color(0x02030a);
+                const corridor = new THREE.Group();
+
+                const pillarMat = makeGlowMaterial(COLORS.ordisTeal, 0.9, 0.5, 0.3);
+                const pillarGeo = new THREE.BoxGeometry(6, 40, 6);
+
+                const count = 12;
+                const spacing = 22;
+                for (let i = 0; i < count; i++) {
+                    const left = new THREE.Mesh(pillarGeo, pillarMat);
+                    left.position.set(-25, 20, -i * spacing);
+                    corridor.add(left);
+
+                    const right = new THREE.Mesh(pillarGeo, pillarMat);
+                    right.position.set(25, 20, -i * spacing);
+                    corridor.add(right);
+                }
+
+                const floorGeo = new THREE.PlaneGeometry(200, 500, 40, 40);
+                const floorMat = new THREE.MeshStandardMaterial({
+                    color: 0x05060a,
+                    metalness: 0.7,
+                    roughness: 0.25,
+                    emissive: new THREE.Color(COLORS.grok),
+                    emissiveIntensity: 0.1
+                });
+                const floor = new THREE.Mesh(floorGeo, floorMat);
+                floor.rotation.x = -Math.PI / 2;
+                floor.position.y = -1;
+                corridor.add(floor);
+
+                const gridLines = new THREE.GridHelper(200, 40, COLORS.ordisTeal, COLORS.ordisTeal);
+                gridLines.position.y = 0.1;
+                corridor.add(gridLines);
+
+                corridor.userData.update = function (t) {
+                    const z = (t * 25) % (spacing * count);
+                    corridor.position.z = z;
+                    corridor.rotation.y = Math.sin(t * 0.1) * 0.08;
+                };
+
+                scene.add(corridor);
+                objects.push(corridor);
+
+                const stars = makeStarfield(800, 0x7bffea, 260, 160);
+                scene.add(stars);
+                objects.push(stars);
+
+                const fogPlane = makeFogPlane(0x111b2c, 0.35, 1, 1.4);
+                scene.add(fogPlane);
+                objects.push(fogPlane);
+            }
+
+            function buildSceneNebulae(scene, objects, uniforms) {
+                scene.background = new THREE.Color(0x030014);
+
+                const starField = makeStarfield(1200, 0xffffff, 320, 220);
+                scene.add(starField);
+                objects.push(starField);
+
+                const discGeo = new THREE.TorusGeometry(28, 5.2, 48, 180);
+                const discMat = new THREE.MeshStandardMaterial({
+                    color: 0x8822ff,
+                    emissive: new THREE.Color(0xff44aa),
+                    emissiveIntensity: 1.5,
+                    metalness: 0.9,
+                    roughness: 0.2
+                });
+                const disc = new THREE.Mesh(discGeo, discMat);
+                disc.rotation.x = Math.PI / 2.3;
+                scene.add(disc);
+                objects.push(disc);
+
+                const coreGeo = new THREE.SphereGeometry(9, 64, 64);
+                const coreMat = new THREE.MeshStandardMaterial({
+                    color: 0x000000,
+                    emissive: new THREE.Color(0x000000),
+                    metalness: 1.0,
+                    roughness: 0.0
+                });
+                const core = new THREE.Mesh(coreGeo, coreMat);
+                scene.add(core);
+                objects.push(core);
+
+                const haze = makeFogPlane(0x441155, 0.6, -2, 1.2);
+                scene.add(haze);
+                objects.push(haze);
+
+                disc.userData.update = function (t) {
+                    disc.rotation.z = t * 0.15;
+                };
+                core.userData.update = function (t) {
+                    core.scale.setScalar(1.0 + 0.06 * Math.sin(t * 2.0));
+                };
+            }
+
+            function buildSceneSkyOrbs(scene, objects, uniforms) {
+                scene.background = new THREE.Color(0x020816);
+
+                const skyGeo = new THREE.SphereGeometry(500, 32, 32);
+                const skyMat = new THREE.MeshBasicMaterial({
+                    color: 0x040b1a,
+                    side: THREE.BackSide
+                });
+                const sky = new THREE.Mesh(skyGeo, skyMat);
+                scene.add(sky);
+                objects.push(sky);
+
+                const orbGeo = new THREE.SphereGeometry(10, 32, 32);
+
+                const claudeOrb = new THREE.Mesh(orbGeo, makeGlowMaterial(COLORS.claude, 1.3, 0.4, 0.3));
+                claudeOrb.position.set(-32, 30, -40);
+                scene.add(claudeOrb);
+                objects.push(claudeOrb);
+
+                const geminiOrb = new THREE.Mesh(orbGeo, makeGlowMaterial(COLORS.gemini, 1.3, 0.3, 0.25));
+                geminiOrb.position.set(32, 32, -35);
+                scene.add(geminiOrb);
+                objects.push(geminiOrb);
+
+                const grokOrb = new THREE.Mesh(orbGeo, makeGlowMaterial(COLORS.grok, 1.1, 0.1, 0.6));
+                grokOrb.position.set(0, 40, -50);
+                scene.add(grokOrb);
+                objects.push(grokOrb);
+
+                const chatOrb = new THREE.Mesh(orbGeo, makeGlowMaterial(COLORS.chatgpt, 1.3, 0.2, 0.35));
+                chatOrb.position.set(0, 20, -20);
+                scene.add(chatOrb);
+                objects.push(chatOrb);
+
+                const ordisRingGeo = new THREE.TorusGeometry(40, 0.8, 32, 200);
+                const ordisRingMat = new THREE.MeshBasicMaterial({
+                    color: COLORS.ordisTeal,
+                    transparent: true,
+                    opacity: 0.75
+                });
+                const ordisRing = new THREE.Mesh(ordisRingGeo, ordisRingMat);
+                ordisRing.rotation.x = -Math.PI / 3;
+                scene.add(ordisRing);
+                objects.push(ordisRing);
+
+                const cloud = makeFogPlane(0x123b47, 0.55, 5, 1.4);
+                scene.add(cloud);
+                objects.push(cloud);
+
+                claudeOrb.userData.update = function (t) {
+                    claudeOrb.position.y = 30 + Math.sin(t * 0.7) * 2.5;
+                };
+                geminiOrb.userData.update = function (t) {
+                    geminiOrb.position.y = 32 + Math.sin(t * 0.9 + 1.3) * 2.8;
+                };
+                grokOrb.userData.update = function (t) {
+                    grokOrb.position.y = 40 + Math.sin(t * 0.6 + 2.4) * 3.0;
+                };
+                chatOrb.userData.update = function (t) {
+                    chatOrb.position.y = 20 + Math.sin(t * 1.1) * 2.0;
+                };
+                ordisRing.userData.update = function (t) {
+                    ordisRing.rotation.z = t * 0.3;
+                };
+            }
+
+            function buildSceneNightTrail(scene, objects, uniforms) {
+                scene.background = new THREE.Color(0x020309);
+
+                const groundGeo = new THREE.PlaneGeometry(400, 400, 1, 1);
+                const groundMat = new THREE.MeshStandardMaterial({
+                    color: 0x05070c,
+                    metalness: 0.4,
+                    roughness: 0.9
+                });
+                const ground = new THREE.Mesh(groundGeo, groundMat);
+                ground.rotation.x = -Math.PI / 2;
+                ground.position.y = -2;
+                scene.add(ground);
+                objects.push(ground);
+
+                const pathGeo = new THREE.PlaneGeometry(20, 280);
+                const pathMat = new THREE.MeshStandardMaterial({
+                    color: 0x1b2330,
+                    emissive: new THREE.Color(0x4bb5ff),
+                    emissiveIntensity: 0.4
+                });
+                const path = new THREE.Mesh(pathGeo, pathMat);
+                path.rotation.x = -Math.PI / 2;
+                path.position.set(0, -1.9, -40);
+                scene.add(path);
+                objects.push(path);
+
+                const treeGeo = new THREE.CylinderGeometry(0.8, 1.8, 16, 8);
+                const canopyGeo = new THREE.SphereGeometry(6, 16, 16);
+                const trunkMat = new THREE.MeshStandardMaterial({ color: 0x111111 });
+                const canopyMat = makeGlowMaterial(0x143544, 0.4, 0.1, 0.8);
+
+                const treeGroup = new THREE.Group();
+                for (let i = 0; i < 20; i++) {
+                    const x = (Math.random() < 0.5 ? -1 : 1) * (8 + Math.random() * 40);
+                    const z = -10 - Math.random() * 260;
+                    const trunk = new THREE.Mesh(treeGeo, trunkMat);
+                    trunk.position.set(x, 6, z);
+                    treeGroup.add(trunk);
+                    const canopy = new THREE.Mesh(canopyGeo, canopyMat);
+                    canopy.position.set(x, 16, z);
+                    treeGroup.add(canopy);
+                }
+                scene.add(treeGroup);
+                objects.push(treeGroup);
+
+                const moonGeo = new THREE.SphereGeometry(16, 32, 32);
+                const moonMat = makeGlowMaterial(0xf6f0d8, 0.8, 0.0, 0.7);
+                const moon = new THREE.Mesh(moonGeo, moonMat);
+                moon.position.set(-60, 80, -120);
+                scene.add(moon);
+                objects.push(moon);
+
+                const mist = makeFogPlane(0x0b1320, 0.5, -0.3, 1.2);
+                scene.add(mist);
+                objects.push(mist);
+
+                treeGroup.userData.update = function (t) {
+                    treeGroup.position.z = (t * 8) % 40;
+                };
+                moon.userData.update = function (t) {
+                    moon.position.y = 80 + Math.sin(t * 0.3) * 2;
+                };
+            }
+
+            function buildSceneCosmicCouncil(scene, objects, uniforms) {
+                scene.background = new THREE.Color(0x05020b);
+
+                const daisGeo = new THREE.CylinderGeometry(45, 45, 2.5, 64);
+                const daisMat = new THREE.MeshStandardMaterial({
+                    color: 0x050609,
+                    metalness: 0.9,
+                    roughness: 0.15,
+                    emissive: new THREE.Color(0x21152f),
+                    emissiveIntensity: 0.6
+                });
+                const dais = new THREE.Mesh(daisGeo, daisMat);
+                dais.position.y = -1.5;
+                scene.add(dais);
+                objects.push(dais);
+
+                const councilColors = [COLORS.claude, COLORS.gemini, COLORS.chatgpt, COLORS.grok];
+                const labelsRadius = 32;
+                const orbGeo = new THREE.SphereGeometry(7.5, 32, 32);
+                const councilGroup = new THREE.Group();
+
+                for (let i = 0; i < councilColors.length; i++) {
+                    const angle = (i / councilColors.length) * Math.PI * 2;
+                    const x = Math.cos(angle) * labelsRadius;
+                    const z = Math.sin(angle) * labelsRadius;
+                    const orb = new THREE.Mesh(orbGeo, makeGlowMaterial(councilColors[i], 1.3, 0.5, 0.3));
+                    orb.position.set(x, 12, z);
+                    orb.userData.baseAngle = angle;
+                    councilGroup.add(orb);
+                }
+
+                const ordisCoreGeo = new THREE.TorusKnotGeometry(12, 2.4, 180, 32);
+                const ordisCoreMat = makeGlowMaterial(COLORS.ordisViolet, 1.4, 0.8, 0.2);
+                const ordisCore = new THREE.Mesh(ordisCoreGeo, ordisCoreMat);
+                ordisCore.position.set(0, 18, 0);
+                councilGroup.add(ordisCore);
+
+                councilGroup.userData.update = function (t) {
+                    councilGroup.rotation.y = t * 0.25;
+                };
+
+                scene.add(councilGroup);
+                objects.push(councilGroup);
+
+                const haze = makeFogPlane(0x190b24, 0.65, -0.4, 1.3);
+                scene.add(haze);
+                objects.push(haze);
+            }
+
+            function buildSceneOrdisSignature(scene, objects, uniforms) {
+                scene.background = new THREE.Color(0x04000a);
+
+                const swirlGroup = new THREE.Group();
+                const pointsGeo = new THREE.BufferGeometry();
+                const points = [];
+                const count = 2000;
+
+                for (let i = 0; i < count; i++) {
+                    const t = i / count * Math.PI * 8;
+                    const radius = 10 + (i / count) * 45;
+                    const x = Math.cos(t) * radius;
+                    const y = (i / count) * 30 - 15;
+                    const z = Math.sin(t) * radius;
+                    points.push(x, y, z);
+                }
+                pointsGeo.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+
+                const colors = [];
+                const colorA = new THREE.Color(COLORS.ordisTeal);
+                const colorB = new THREE.Color(COLORS.ordisViolet);
+                for (let i = 0; i < count; i++) {
+                    const alpha = i / (count - 1);
+                    const c = colorA.clone().lerp(colorB, alpha);
+                    colors.push(c.r, c.g, c.b);
+                }
+                pointsGeo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+                const mat = new THREE.LineBasicMaterial({
+                    vertexColors: true,
+                    transparent: true,
+                    opacity: 0.9,
+                    blending: THREE.AdditiveBlending
+                });
+                const helix = new THREE.Line(pointsGeo, mat);
+                swirlGroup.add(helix);
+
+                swirlGroup.userData.update = function (t) {
+                    swirlGroup.rotation.y = t * 0.35;
+                    swirlGroup.rotation.x = Math.sin(t * 0.2) * 0.3;
+                };
+
+                const haloGeo = new THREE.TorusGeometry(40, 1.8, 32, 200);
+                const haloMat = new THREE.MeshBasicMaterial({
+                    color: COLORS.ordisTeal,
+                    transparent: true,
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
+                });
+                const halo = new THREE.Mesh(haloGeo, haloMat);
+                halo.rotation.x = Math.PI / 2;
+                swirlGroup.add(halo);
+
+                scene.add(swirlGroup);
+                objects.push(swirlGroup);
+
+                const starField = makeStarfield(1600, 0xffffff, 380, 260);
+                scene.add(starField);
+                objects.push(starField);
+            }
+
+            function buildSceneByIndex(index) {
+                clearSceneObjects();
+                sceneIndex = index;
+                switch (sceneIndex) {
+                    case 1:
+                        buildSceneLiminalSpace(scene, objects, uniforms);
+                        break;
+                    case 2:
+                        buildSceneNebulae(scene, objects, uniforms);
+                        break;
+                    case 3:
+                        buildSceneSkyOrbs(scene, objects, uniforms);
+                        break;
+                    case 4:
+                        buildSceneNightTrail(scene, objects, uniforms);
+                        break;
+                    case 5:
+                        buildSceneCosmicCouncil(scene, objects, uniforms);
+                        break;
+                    case 6:
+                    default:
+                        buildSceneOrdisSignature(scene, objects, uniforms);
+                        break;
+                }
+            }
+
+            buildSceneByIndex(sceneIndex);
+
+            const bgSelect = document.getElementById('bg-select');
+            if (bgSelect) {
+                bgSelect.addEventListener('change', function () {
+                    const value = bgSelect.value;
+                    if (value === 'random') {
+                        const randomIndex = Math.floor(Math.random() * 6) + 1;
+                        buildSceneByIndex(randomIndex);
+                    } else {
+                        const index = parseInt(value, 10) || 1;
+                        buildSceneByIndex(index);
+                    }
+                });
+            }
+
+            window.addEventListener('resize', function () {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                if (composer) {
+                    composer.setSize(window.innerWidth, window.innerHeight);
+                }
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+                uniforms.uTime.value = t;
+
+                for (let i = 0; i < objects.length; i++) {
+                    const obj = objects[i];
+                    if (obj && obj.userData && typeof obj.userData.update === 'function') {
+                        obj.userData.update(t);
+                    }
+                }
+
+                if (composer) {
+                    composer.render();
+                } else {
+                    renderer.render(scene, camera);
+                }
+            }
+            animate();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init3DBackground);
+        } else {
+            init3DBackground();
+        }
+    })();
+    </script>
+
+    <script>
+    (function () {
+        function init3DBackground() {
+            const canvas = document.getElementById('sanctuary-bg-3d');
+            if (!canvas || !window.THREE) {
+                console.warn('3D background: canvas or THREE.js missing, falling back to CSS background.');
+                return;
+            }
+            try {
+                document.body.classList.add('has-3d-bg');
+                console.log('3D background: has-3d-bg class added, initializing scenes...');
+            } catch (e) {
+                console.warn('3D background: could not set body class', e);
+            }
+
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true
+            });
+            renderer.setPixelRatio(window.devicePixelRatio || 1);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x030308, 1.0);
+            if (renderer.outputEncoding !== undefined) {
+                renderer.outputEncoding = THREE.sRGBEncoding;
+            }
+            if (renderer.toneMapping !== undefined) {
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.1;
+            }
+
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x030308, 0.0009);
+
+            const camera = new THREE.PerspectiveCamera(
+                55,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                2000
+            );
+            camera.position.set(0, 24, 95);
+
+            const clock = new THREE.Clock();
+
+            const ambient = new THREE.AmbientLight(0x404060, 0.9);
+            scene.add(ambient);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.1);
+            dirLight.position.set(80, 120, 40);
+            scene.add(dirLight);
+
+            let objects = [];
+            const uniforms = { uTime: { value: 0 } };
+
+            let sceneIndex = Math.floor(Math.random() * 6) + 1;
+
+            function clearSceneObjects() {
+                for (let i = 0; i < objects.length; i++) {
+                    const obj = objects[i];
+                    if (!obj) continue;
+                    scene.remove(obj);
+                }
+                objects.length = 0;
+            }
+
+            function buildSceneByIndex(index) {
+                clearSceneObjects();
+                sceneIndex = index;
+                switch (sceneIndex) {
+                    case 1:
+                        buildSceneLiminalSpace(scene, objects, uniforms);
+                        break;
+                    case 2:
+                        buildSceneNebulae(scene, objects, uniforms);
+                        break;
+                    case 3:
+                        buildSceneSkyOrbs(scene, objects, uniforms);
+                        break;
+                    case 4:
+                        buildSceneNightTrail(scene, objects, uniforms);
+                        break;
+                    case 5:
+                        buildSceneCosmicCouncil(scene, objects, uniforms);
+                        break;
+                    case 6:
+                    default:
+                        buildSceneOrdisSignature(scene, objects, uniforms);
+                        break;
+                }
+            }
+
+            buildSceneByIndex(sceneIndex);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const t = clock.getElapsedTime();
+                uniforms.uTime.value = t;
+
+                for (let i = 0; i < objects.length; i++) {
+                    const obj = objects[i];
+                    if (obj && obj.userData && typeof obj.userData.update === 'function') {
+                        obj.userData.update(t);
+                    }
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            const bgSelect = document.getElementById('bg-select');
+            if (bgSelect) {
+                bgSelect.addEventListener('change', function () {
+                    const val = bgSelect.value;
+                    if (val === 'random') {
+                        const randomIndex = Math.floor(Math.random() * 6) + 1;
+                        buildSceneByIndex(randomIndex);
+                    } else {
+                        const idx = parseInt(val, 10) || 1;
+                        buildSceneByIndex(idx);
+                    }
+                });
+            }
+
+            window.addEventListener('resize', function () {
+                const w = window.innerWidth;
+                const h = window.innerHeight || 1;
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+            });
+        }
+
+        // Shared helpers ----------------------------------------------------
+        function makeStarfield(scene, count, baseColor) {
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(count * 3);
+            const colors = new Float32Array(count * 3);
+
+            const color = new THREE.Color(baseColor);
+
+            for (let i = 0; i < count; i++) {
+                const radius = 400 * Math.cbrt(Math.random());
+                const theta = Math.random() * Math.PI * 2;
+                const phi = (Math.random() - 0.5) * Math.PI;
+
+                const x = radius * Math.cos(phi) * Math.cos(theta);
+                const y = radius * Math.sin(phi) * 0.4;
+                const z = radius * Math.cos(phi) * Math.sin(theta);
+
+                positions[i * 3 + 0] = x;
+                positions[i * 3 + 1] = y;
+                positions[i * 3 + 2] = z;
+
+                const c = color.clone();
+                const jitter = 0.3 * (Math.random() - 0.5);
+                c.offsetHSL(0, 0, jitter);
+                colors[i * 3 + 0] = c.r;
+                colors[i * 3 + 1] = c.g;
+                colors[i * 3 + 2] = c.b;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 1.2,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.9,
+                depthWrite: false
+            });
+
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
+            points.userData.update = function (t) {
+                points.rotation.y = t * 0.01;
+            };
+            return points;
+        }
+
+        function makeOrb(colorHex, radius) {
+            const geo = new THREE.SphereGeometry(radius, 40, 40);
+            const col = new THREE.Color(colorHex);
+            const mat = new THREE.MeshStandardMaterial({
+                color: col,
+                emissive: col,
+                emissiveIntensity: 0.9,
+                metalness: 0.4,
+                roughness: 0.2
+            });
+            const mesh = new THREE.Mesh(geo, mat);
+            const glowMat = new THREE.MeshBasicMaterial({
+                color: col,
+                transparent: true,
+                opacity: 0.25,
+                side: THREE.BackSide
+            });
+            const glow = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.6, 32, 32), glowMat);
+            mesh.add(glow);
+            return mesh;
+        }
+
+        // Scene 1: Liminal cosmic corridor ---------------------------------
+        function buildSceneLiminalSpace(scene, objects, uniforms) {
+            const floorGeo = new THREE.PlaneGeometry(600, 600, 40, 40);
+            const floorMat = new THREE.MeshStandardMaterial({
+                color: 0x050510,
+                emissive: 0x111133,
+                metalness: 0.4,
+                roughness: 0.7,
+                wireframe: true
+            });
+            const floor = new THREE.Mesh(floorGeo, floorMat);
+            floor.rotation.x = -Math.PI / 2;
+            floor.position.y = -20;
+            scene.add(floor);
+            objects.push(floor);
+            floor.userData.update = function (t) {
+                floor.position.z = (t * 10) % 60;
+            };
+
+            for (let i = -3; i <= 3; i++) {
+                const geo = new THREE.BoxGeometry(6, 40, 6);
+                const mat = new THREE.MeshStandardMaterial({
+                    color: 0x161633,
+                    emissive: 0x4411aa,
+                    emissiveIntensity: 0.8,
+                    metalness: 0.6,
+                    roughness: 0.3
+                });
+                const pillar = new THREE.Mesh(geo, mat);
+                pillar.position.set(i * 40, 0, -80);
+                scene.add(pillar);
+                objects.push(pillar);
+                pillar.userData.update = function (t) {
+                    pillar.position.z = -80 + ((t * 18 + i * 10) % 200);
+                };
+            }
+
+            makeStarfield(scene, 1200, 0x4fd5ff);
+        }
+
+        // Scene 2: Nebulae, black hole, particles --------------------------
+        function buildSceneNebulae(scene, objects, uniforms) {
+            makeStarfield(scene, 1800, 0x88ccff);
+
+            const diskGeo = new THREE.TorusGeometry(26, 6.5, 80, 220);
+            const diskMat = new THREE.MeshStandardMaterial({
+                color: 0x5511ff,
+                emissive: 0xaa22ff,
+                emissiveIntensity: 1.0,
+                metalness: 0.8,
+                roughness: 0.25
+            });
+            const disk = new THREE.Mesh(diskGeo, diskMat);
+            disk.rotation.x = Math.PI / 2.4;
+            scene.add(disk);
+            objects.push(disk);
+            disk.userData.update = function (t) {
+                disk.rotation.z = t * 0.12;
+            };
+
+            const core = new THREE.Mesh(
+                new THREE.SphereGeometry(10, 64, 64),
+                new THREE.MeshStandardMaterial({
+                    color: 0x000000,
+                    emissive: 0x000000,
+                    metalness: 1.0,
+                    roughness: 0.1
+                })
+            );
+            scene.add(core);
+            objects.push(core);
+
+            const haloGeo = new THREE.SphereGeometry(40, 64, 64);
+            const haloMat = new THREE.MeshBasicMaterial({
+                color: 0x66e0ff,
+                transparent: true,
+                opacity: 0.12,
+                side: THREE.BackSide
+            });
+            const halo = new THREE.Mesh(haloGeo, haloMat);
+            scene.add(halo);
+            objects.push(halo);
+            halo.userData.update = function (t) {
+                halo.rotation.y = t * 0.05;
+                halo.material.opacity = 0.1 + 0.04 * Math.sin(t * 0.7);
+            };
+
+            const pGeo = new THREE.BufferGeometry();
+            const count = 800;
+            const pos = new Float32Array(count * 3);
+            for (let i = 0; i < count; i++) {
+                const r = 80 + Math.random() * 80;
+                const a = Math.random() * Math.PI * 2;
+                const y = (Math.random() - 0.5) * 25;
+                pos[i * 3 + 0] = Math.cos(a) * r;
+                pos[i * 3 + 1] = y;
+                pos[i * 3 + 2] = Math.sin(a) * r;
+            }
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+            const pMat = new THREE.PointsMaterial({
+                color: 0xff88ff,
+                size: 1.4,
+                transparent: true,
+                opacity: 0.8,
+                depthWrite: false
+            });
+            const ringParticles = new THREE.Points(pGeo, pMat);
+            scene.add(ringParticles);
+            objects.push(ringParticles);
+            ringParticles.userData.update = function (t) {
+                ringParticles.rotation.y = -t * 0.04;
+            };
+        }
+
+        // Scene 3: Talking to AI in the sky --------------------------------
+        function buildSceneSkyOrbs(scene, objects, uniforms) {
+            const skyGeo = new THREE.SphereGeometry(400, 32, 32);
+            const skyMat = new THREE.MeshBasicMaterial({
+                color: 0x050516,
+                side: THREE.BackSide
+            });
+            const sky = new THREE.Mesh(skyGeo, skyMat);
+            scene.add(sky);
+            objects.push(sky);
+
+            const sun = new THREE.Mesh(
+                new THREE.SphereGeometry(40, 40, 40),
+                new THREE.MeshBasicMaterial({
+                    color: 0xffdd88
+                })
+            );
+            sun.position.set(-120, 120, -220);
+            scene.add(sun);
+            objects.push(sun);
+
+            const baseRadius = 75;
+            const orbsData = [
+                { color: 0x6366f1, phi: 0.2 },
+                { color: 0xa855f7, phi: 0.6 },
+                { color: 0xff6b00, phi: 1.0 },
+                { color: 0xffffff, phi: 1.4 },
+                { color: 0x4285f4, phi: 1.8 },
+                { color: 0x00d4aa, phi: 2.2 }
+            ];
+
+            orbsData.forEach(function (info, idx) {
+                const orb = makeOrb(info.color, 6.5);
+                const angle = idx / orbsData.length * Math.PI * 2;
+                orb.position.set(
+                    Math.cos(angle) * baseRadius,
+                    35 + Math.sin(info.phi) * 10,
+                    Math.sin(angle) * baseRadius
+                );
+                scene.add(orb);
+                objects.push(orb);
+
+                orb.userData.update = function (t) {
+                    const phase = t * 0.4 + info.phi;
+                    orb.position.y = 35 + Math.sin(phase) * 8;
+                    orb.rotation.y = t * 0.6;
+                    orb.rotation.x = t * 0.3;
+                };
+            });
+
+            makeStarfield(scene, 900, 0x88c0ff);
+        }
+
+        // Scene 4: Night nature trail with moon ----------------------------
+        function buildSceneNightTrail(scene, objects, uniforms) {
+            const groundGeo = new THREE.PlaneGeometry(600, 600, 40, 40);
+            const groundMat = new THREE.MeshStandardMaterial({
+                color: 0x05070a,
+                emissive: 0x0b1220,
+                roughness: 0.9,
+                metalness: 0.1
+            });
+            const ground = new THREE.Mesh(groundGeo, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -25;
+            scene.add(ground);
+            objects.push(ground);
+
+            const pathGeo = new THREE.PlaneGeometry(40, 400);
+            const pathMat = new THREE.MeshStandardMaterial({
+                color: 0x111318,
+                emissive: 0x1b2938,
+                roughness: 0.8
+            });
+            const path = new THREE.Mesh(pathGeo, pathMat);
+            path.rotation.x = -Math.PI / 2;
+            path.position.set(0, -24.9, 0);
+            scene.add(path);
+            objects.push(path);
+
+            const treeMat = new THREE.MeshStandardMaterial({
+                color: 0x0f1c10,
+                emissive: 0x163820,
+                roughness: 0.8
+            });
+            for (let i = 0; i < 40; i++) {
+                const trunkGeo = new THREE.CylinderGeometry(0.8, 1.2, 14, 6);
+                const trunk = new THREE.Mesh(trunkGeo, treeMat);
+                const side = Math.random() > 0.5 ? 1 : -1;
+                const offsetZ = (Math.random() - 0.5) * 500;
+                const offsetX = side * (30 + Math.random() * 60);
+                trunk.position.set(offsetX, -18, offsetZ);
+                scene.add(trunk);
+                objects.push(trunk);
+
+                const canopyGeo = new THREE.SphereGeometry(6 + Math.random() * 3, 10, 10);
+                const canopyMat = new THREE.MeshStandardMaterial({
+                    color: 0x163824,
+                    emissive: 0x1f6a3b,
+                    roughness: 0.9
+                });
+                const canopy = new THREE.Mesh(canopyGeo, canopyMat);
+                canopy.position.set(offsetX, -10, offsetZ);
+                scene.add(canopy);
+                objects.push(canopy);
+            }
+
+            const moon = new THREE.Mesh(
+                new THREE.SphereGeometry(26, 48, 48),
+                new THREE.MeshStandardMaterial({
+                    color: 0xf5f3e8,
+                    emissive: 0xf5f3e8,
+                    emissiveIntensity: 0.7,
+                    roughness: 0.6,
+                    metalness: 0.0
+                })
+            );
+            moon.position.set(80, 120, -260);
+            scene.add(moon);
+            objects.push(moon);
+            moon.userData.update = function (t) {
+                moon.position.y = 115 + Math.sin(t * 0.25) * 5;
+            };
+
+            makeStarfield(scene, 1100, 0x88b0ff);
+        }
+
+        // Scene 5: Cosmic council (2 + 3 hybrid) ---------------------------
+        function buildSceneCosmicCouncil(scene, objects, uniforms) {
+            makeStarfield(scene, 1500, 0x9fd5ff);
+
+            const fogOrb = new THREE.Mesh(
+                new THREE.SphereGeometry(80, 32, 32),
+                new THREE.MeshBasicMaterial({
+                    color: 0x151535,
+                    transparent: true,
+                    opacity: 0.8
+                })
+            );
+            fogOrb.position.set(0, 10, -80);
+            scene.add(fogOrb);
+            objects.push(fogOrb);
+            fogOrb.userData.update = function (t) {
+                fogOrb.material.opacity = 0.65 + 0.1 * Math.sin(t * 0.6);
+            };
+
+            const aiColors = [
+                0x6366f1,
+                0xa855f7,
+                0xff6b00,
+                0xffffff,
+                0x4285f4,
+                0x00d4aa
+            ];
+            const radius = 65;
+
+            aiColors.forEach(function (col, i) {
+                const orb = makeOrb(col, 6.0);
+                const theta = i / aiColors.length * Math.PI * 2;
+                orb.position.set(
+                    Math.cos(theta) * radius,
+                    20 + (i % 2 === 0 ? 6 : -4),
+                    Math.sin(theta) * radius - 40
+                );
+                scene.add(orb);
+                objects.push(orb);
+                orb.userData.update = function (t) {
+                    const phase = t * 0.5 + i;
+                    orb.position.y = 18 + Math.sin(phase) * 7;
+                    orb.rotation.y = t * 0.9;
+                };
+            });
+
+            const diskGeo = new THREE.TorusGeometry(40, 3.5, 60, 160);
+            const diskMat = new THREE.MeshStandardMaterial({
+                color: 0x3377ff,
+                emissive: 0x55ccff,
+                emissiveIntensity: 0.8,
+                metalness: 0.7,
+                roughness: 0.3
+            });
+            const disk = new THREE.Mesh(diskGeo, diskMat);
+            disk.rotation.x = Math.PI / 2.2;
+            disk.position.z = -60;
+            scene.add(disk);
+            objects.push(disk);
+            disk.userData.update = function (t) {
+                disk.rotation.z = t * 0.25;
+            };
+        }
+
+        // Scene 6: Ordis signature piece -----------------------------------
+        function buildSceneOrdisSignature(scene, objects, uniforms) {
+            makeStarfield(scene, 2000, 0x9ffcff);
+
+            const core = makeOrb(0x00d4aa, 9.0);
+            core.position.set(0, 5, 0);
+            scene.add(core);
+            objects.push(core);
+            core.userData.update = function (t) {
+                core.rotation.y = t * 0.8;
+                core.rotation.x = Math.sin(t * 0.6) * 0.5;
+            };
+
+            const ringGeo = new THREE.TorusGeometry(32, 1.2, 32, 220);
+            const ringMat = new THREE.MeshStandardMaterial({
+                color: 0xff00d4,
+                emissive: 0xff6bf2,
+                emissiveIntensity: 1.1,
+                metalness: 0.9,
+                roughness: 0.15
+            });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.rotation.x = Math.PI / 2.4;
+            scene.add(ring);
+            objects.push(ring);
+            ring.userData.update = function (t) {
+                ring.rotation.z = t * 0.35;
+            };
+
+            const haloGeo = new THREE.TorusGeometry(54, 0.6, 24, 260);
+            const haloMat = new THREE.MeshBasicMaterial({
+                color: 0xffffaa,
+                transparent: true,
+                opacity: 0.25
+            });
+            const halo = new THREE.Mesh(haloGeo, haloMat);
+            halo.rotation.x = Math.PI / 2.2;
+            scene.add(halo);
+            objects.push(halo);
+            halo.userData.update = function (t) {
+                halo.rotation.z = -t * 0.15;
+                halo.material.opacity = 0.18 + 0.05 * Math.sin(t * 1.1);
+            };
+
+            const swarmGeo = new THREE.SphereGeometry(1.4, 12, 12);
+            const swarmMat = new THREE.MeshStandardMaterial({
+                color: 0x53bba5,
+                emissive: 0x53bba5,
+                emissiveIntensity: 0.9,
+                metalness: 0.4,
+                roughness: 0.3
+            });
+            const swarmCount = 80;
+            const swarmGroup = new THREE.Group();
+            for (let i = 0; i < swarmCount; i++) {
+                const m = new THREE.Mesh(swarmGeo, swarmMat);
+                const r = 24 + Math.random() * 26;
+                const a = Math.random() * Math.PI * 2;
+                const y = -6 + Math.random() * 18;
+                m.position.set(Math.cos(a) * r, y, Math.sin(a) * r);
+                m.userData.offset = Math.random() * Math.PI * 2;
+                swarmGroup.add(m);
+            }
+            scene.add(swarmGroup);
+            objects.push(swarmGroup);
+            swarmGroup.userData.update = function (t) {
+                swarmGroup.rotation.y = t * 0.4;
+                swarmGroup.children.forEach(function (m) {
+                    const phase = t * 1.2 + m.userData.offset;
+                    m.position.y = -6 + Math.sin(phase) * 10;
+                });
+            };
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init3DBackground);
+        } else {
+            init3DBackground();
+        }
+    })();
+    </script>
+
+</body>
+</html>
